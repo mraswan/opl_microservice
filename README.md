@@ -3,7 +3,7 @@ Download and Run
 
 Download
 --------------
-	git clone https://github.com....
+	git clone https://github.com/mraswan/opl_microservice.git
 	cd opl_microservice
 	pip install -r requirements
 
@@ -11,13 +11,18 @@ Prerequisite (to Run)
 --------------
 - install needed modules
 `` pip install -r requirements.txt``	
-	
+`` create a folder named db``
+`` opl_data.db holds the database. sqlite3 db/opl_data.db``
+`` run the commands in sql/opl_daanase_schema.sql in the db``	
 Configuration (if you need to change)
 --------------
 
 
 Run
 --------------
+- Run for development using:
+`` python run.py``
+
 - Run Server using Gunicorn (@ port 5000).
 `` gunicorn --bind 0.0.0.0:5000 run:oplAPIApp ``
     Before executing make sure you have instance folder at same level as run.py file.
