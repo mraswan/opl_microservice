@@ -1,6 +1,6 @@
 --sqlite3 db/opl_data.db
 
-CREATE TABLE IF NOT EXISTS user_type(
+CREATE TABLE IF NOT EXISTS user_type (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
@@ -70,3 +70,69 @@ INSERT into sub_category VALUES (11,"Geometry", 3);
 INSERT into sub_category VALUES (12,"Trigonometry", 3);
 INSERT into sub_category VALUES (13,"Pre-Calculus", 3);
 INSERT into sub_category VALUES (14,"Calculus", 3);
+
+
+INSERT into lesson VALUES (1,
+    "Meiosis by Amoeba Sisters",
+    "Join the Amoeba Sisters as they explore the meiosis stages with vocabulary including chromosomes, centromeres, centrioles, spindle fibers, and crossing over. ",
+    "VzDMG7ke69g",
+    "https://github.com/BiggBird/OPL",
+    "1594875503",
+    2,
+    6,
+    2
+);
+
+INSERT into lesson VALUES (2,
+    "Intro to Cell Signaling by Amoeba Sisters",
+    "Explore cell signaling with the Amoeba Sisters! This introductory video describes vocabulary such as ligand and receptor. It includes the stages of cell signaling (reception, transduction, and response) and different types of signaling including autocrine, paracrine, and endocrine. ",
+    "-dbRterutHY",
+    "https://github.com/BiggBird/OPL",
+    "1594875503",
+    2,
+    6,
+    2
+);
+
+INSERT into lesson VALUES (3,
+    "The Cell Cycle (and cancer) by Amoeba Sisters",
+    "Explore the cell cycle with the Amoeba Sisters and an important example of when it is not controlled: cancer. ",
+    "QVCjdNxJreE",
+    "https://github.com/BiggBird/OPL",
+    "1594875503",
+    2,
+    6,
+    2
+);
+
+INSERT into lesson VALUES (4,
+    "Mitosis: The Amazing Cell Process that Uses Division to Multiply! by Amoeba Sisters",
+    "The Amoeba Sisters walk you through the reason for mitosis with mnemonics for prophase, metaphase, anaphase, and telophase. ",
+    "f-ldPgEfAHI",
+    "https://github.com/BiggBird/OPL",
+    "1594875503",
+    2,
+    6,
+    2
+);
+
+
+SELECT * FROM category
+INNER JOIN sub_category
+ON category.id = sub_category.category_id;
+
+
+SELECT lesson.id, lesson.name, description, youtube_url, git_url, published_timestamp,
+                 category.id, category.name, sub_category.id, sub_category.name,
+                 user.username as author_name FROM category
+INNER JOIN sub_category
+    ON category.id = sub_category.category_id
+INNER JOIN lesson
+    ON sub_category.id = lesson.sub_category_id
+INNER JOIN user
+    ON lesson.author_id = user.id;
+
+
+id, name, description, youtube_url, git_url, published_timestamp,
+                 category_id, category_name, sub_category_id, sub_category_name,
+                 author_name

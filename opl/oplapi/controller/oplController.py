@@ -19,6 +19,18 @@ category = oplApi.model('Category', {
     'sub_categories': fields.List(fields.Nested(sub_category))
 })
 
+lesson = oplApi.model('Lesson', {
+    'id': fields.String(attribute='id', description='Lesson ID'),
+    'name': fields.String(attribute='name', description='Lesson Name'),
+    'description': fields.String(attribute='description', description='Description'),
+    'youtube_url': fields.String(attribute='youtube_url', description='youtube_url'),
+    'git_url': fields.String(attribute='git_url', description='git_url'),
+    'published_timestamp': fields.String(attribute='published_timestamp', description='Category Name'),
+    'author_name': fields.String(attribute='author_name', description='Category Name'),
+    'category': fields.List(fields.Nested(sub_category)),
+    'sub_category': fields.List(fields.Nested(sub_category))
+})
+
 # categories = oplApi.model('AllCategories', {
 #     # 'recordCount': fields.Integer(attribute='recordCount', description='Record Count'),
 #     'categories': fields.List(fields.Nested(category))
@@ -35,6 +47,18 @@ class CategoryController(Resource):
         service = OplService()
         result = service.get_categories()
         # relVal["AllCategories"] = result
+        return result, 200, {'Content-Type': 'application/json; charset=utf8'}
+
+@oplns.route('/lessons')
+class LessonController(Resource):
+
+    @oplns.doc('list_lessons')
+    @oplns.marshal_with(lesson)
+    def get(self):
+        # relVal = {}
+        '''list of lessons'''
+        service = OplService()
+        result = service.get_lessons()
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
 # candidateinfo = oplApi.model('CandidateInfo', {

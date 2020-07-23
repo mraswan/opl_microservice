@@ -1,7 +1,7 @@
 #Mac OSX files
 .DS_Store
 
-#flask project local config folder
+#flask project instance config folder
 /instance
 
 # Byte-compiled / optimized / DLL files

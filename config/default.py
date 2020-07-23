@@ -7,6 +7,14 @@ SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     on category.id = sub_category.category_id;
                                     """
 
+SQL_SELECT_LESSON = """
+                    SELECT * FROM category
+                    INNER JOIN sub_category
+                        ON category.id = sub_category.category_id
+                    INNER JOIN lesson
+                        ON sub_category.id = lesson.sub_category_id
+                    INNER JOIN user
+                        ON lesson.author_id = user.id;"""
 
 # SOLR_BASE = 'http://localhost:8983/solr'
 # SOLR_COLLECTION_TALENT = '/dbAcc'
