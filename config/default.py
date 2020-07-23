@@ -8,7 +8,10 @@ SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     """
 
 SQL_SELECT_LESSON = """
-                    SELECT * FROM category
+                    SELECT lesson.id, lesson.name, lesson.description, lesson.youtube_url, lesson.git_url, lesson.published_timestamp,
+                             category.id as category_id, category.name as category_name, sub_category.id as sub_category_id, sub_category.name as sub_category_name,
+                             user.username as author_name
+                    FROM category
                     INNER JOIN sub_category
                         ON category.id = sub_category.category_id
                     INNER JOIN lesson
