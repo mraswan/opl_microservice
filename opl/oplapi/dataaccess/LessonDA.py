@@ -13,7 +13,7 @@ class LessonDataAccess(DbConnect):
         super().__init__(dbFile)
         print("Initialize CategoryDataAccess")
 
-    def selectAllLessons(self, offset, row_count):
+    def selectAllLessons(self, category_id = None, sub_category_id = None, offset=0, row_count=app.config['SQL_ROW_COUNT']):
         """
 
         :param
@@ -22,7 +22,14 @@ class LessonDataAccess(DbConnect):
         lessons = []
         conn = self._createConnection()
         with conn:
-            sql = app.config['SQL_SELECT_LESSON'].format(offset, row_count)
+            where_clause = ""
+            if category_id is not None:
+                where_clause = " WHERE category.id = {}".format(category_id)
+            if sub_category_id is not None:
+                where_clause = where_clause+" OR sub_category.id = {}".format(sub_category_id) if where_clause != "" else " WHERE sub_category.id = {}".format(sub_category_id)
+
+            sql = app.config['SQL_SELECT_LESSON'].format(where_clause, offset, row_count)
+            print(sql)
             cur = conn.cursor()
             cur.execute(sql)
             lessons = [Lesson(*row) for row in cur.fetchall()]

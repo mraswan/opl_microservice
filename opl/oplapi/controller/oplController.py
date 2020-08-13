@@ -1,5 +1,5 @@
 from flask_restplus import Api, Resource, fields, reqparse
-
+from opl import oplAPIApp as app
 from opl import oplApi
 from opl.oplapi.service.opl_service import OplService
 
@@ -70,15 +70,21 @@ class LessonSearchController(Resource):
 
 @oplns.route('/lessons')
 class LessonController(Resource):
-    '''All Lessons'''
+    parser = reqparse.RequestParser()
+    parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
+    parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
 
     @oplns.doc('list_lessons')
+    @oplns.expect(parser, validate=True)
     @oplns.marshal_with(lesson)
     def get(self):
         # relVal = {}
         '''list of lessons'''
+        args = LessonController.parser.parse_args()
         service = OplService()
-        result = service.get_lessons()
+        print(args.get("category"))
+        print(args.get("sub_category"))
+        result = service.get_lessons(category_id = args.get("category"), sub_category_id = args.get("sub_category"), offset=0, row_count=app.config['SQL_ROW_COUNT'])
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
 # candidateinfo = oplApi.model('CandidateInfo', {

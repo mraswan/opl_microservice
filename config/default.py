@@ -18,7 +18,9 @@ SQL_SELECT_LESSON = """
                     INNER JOIN lesson
                         ON sub_category.id = lesson.sub_category_id
                     INNER JOIN user
-                        ON lesson.author_id = user.id limit {},{};"""
+                        ON lesson.author_id = user.id 
+                    {} 
+                        limit {},{};"""
 
 SQL_SELECT_LESSON_COUNT = """
                     SELECT count(*) as count
