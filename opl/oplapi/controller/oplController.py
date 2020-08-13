@@ -50,8 +50,8 @@ class CategoryController(Resource):
         # relVal["AllCategories"] = result
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
-@oplns.route('/lessons')
-class LessonController(Resource):
+@oplns.route('/searchlessons')
+class LessonSearchController(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('query', type=str, help='Query', required=True, location='args')
     '''Matching lessons to a search query'''
@@ -62,10 +62,23 @@ class LessonController(Resource):
     def get(self):
         # relVal = {}
         '''list of lessons'''
-        args = LessonController.parser.parse_args()
+        args = LessonSearchController.parser.parse_args()
         service = OplService()
         print(args.get("query"))
         result = service.find_lessons(args.get("query"))
+        return result, 200, {'Content-Type': 'application/json; charset=utf8'}
+
+@oplns.route('/lessons')
+class LessonController(Resource):
+    '''All Lessons'''
+
+    @oplns.doc('list_lessons')
+    @oplns.marshal_with(lesson)
+    def get(self):
+        # relVal = {}
+        '''list of lessons'''
+        service = OplService()
+        result = service.get_lessons()
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
 # candidateinfo = oplApi.model('CandidateInfo', {

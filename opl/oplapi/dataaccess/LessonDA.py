@@ -13,7 +13,7 @@ class LessonDataAccess(DbConnect):
         super().__init__(dbFile)
         print("Initialize CategoryDataAccess")
 
-    def selectAllLessons(self,offset, row_count):
+    def selectAllLessons(self, offset, row_count):
         """
 
         :param
@@ -46,7 +46,7 @@ class LessonDataAccess(DbConnect):
                 break
         return record_count
 
-    def findLessons(self,query):
+    def findLessons(self, query):
         """
 
         :param
@@ -59,11 +59,6 @@ class LessonDataAccess(DbConnect):
             cur = conn.cursor()
             cur.execute(sql)
             lessons = [Lesson(*row) for row in cur.fetchall()]
-            # rows = cur.fetchall()
-            # lesson = None
-            # for row in rows:
-            #     lesson = Lesson(*row)
-            #     lessons.append(lesson)
         return lessons
 
     # def selectAppsNotProcessedForBinningApp(self):

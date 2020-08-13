@@ -18,7 +18,7 @@ class OplService(object):
         return retval
 
     def get_lessons(self):
-        retval = self.lessonDA.selectAllLessons()
+        retval = self.lessonDA.selectAllLessons(0, app.config['SQL_ROW_COUNT'])
         return retval
 
     def get_lessons_count(self):
