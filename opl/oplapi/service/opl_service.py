@@ -20,3 +20,11 @@ class OplService(object):
     def get_lessons(self):
         retval = self.lessonDA.selectAllLessons()
         return retval
+
+    def get_lessons_count(self):
+        retval = self.lessonDA.selectLessonsCount()
+        return retval
+
+    def find_lessons(self, query):
+        retval = self.lessonDA.findLessons(query)
+        return retval

@@ -1,4 +1,5 @@
-from flask_restplus import Resource, fields, reqparse
+from flask_restplus import Api, Resource, fields, reqparse
+
 from opl import oplApi
 from opl.oplapi.service.opl_service import OplService
 
@@ -31,10 +32,10 @@ lesson = oplApi.model('Lesson', {
     'sub_category': fields.List(fields.Nested(sub_category))
 })
 
-# categories = oplApi.model('AllCategories', {
-#     # 'recordCount': fields.Integer(attribute='recordCount', description='Record Count'),
-#     'categories': fields.List(fields.Nested(category))
-# })
+lessons = oplApi.model('AllLessons', {
+    'recordCount': fields.Integer(attribute='recordCount', description='Record Count'),
+    'lessons': fields.List(fields.Nested(lesson))
+})
 
 @oplns.route('/categories')
 class CategoryController(Resource):
@@ -51,14 +52,20 @@ class CategoryController(Resource):
 
 @oplns.route('/lessons')
 class LessonController(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('query', type=str, help='Query', required=True, location='args')
+    '''Matching lessons to a search query'''
 
     @oplns.doc('list_lessons')
+    @oplns.expect(parser, validate=True)
     @oplns.marshal_with(lesson)
     def get(self):
         # relVal = {}
         '''list of lessons'''
+        args = LessonController.parser.parse_args()
         service = OplService()
-        result = service.get_lessons()
+        print(args.get("query"))
+        result = service.find_lessons(args.get("query"))
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
 # candidateinfo = oplApi.model('CandidateInfo', {

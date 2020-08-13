@@ -13,7 +13,7 @@ class LessonDataAccess(DbConnect):
         super().__init__(dbFile)
         print("Initialize CategoryDataAccess")
 
-    def selectAllLessons(self):
+    def selectAllLessons(self,offset, row_count):
         """
 
         :param
@@ -22,7 +22,40 @@ class LessonDataAccess(DbConnect):
         lessons = []
         conn = self._createConnection()
         with conn:
-            sql = app.config['SQL_SELECT_LESSON']
+            sql = app.config['SQL_SELECT_LESSON'].format(offset, row_count)
+            cur = conn.cursor()
+            cur.execute(sql)
+            lessons = [Lesson(*row) for row in cur.fetchall()]
+            # rows = cur.fetchall()
+            # lesson = None
+            # for row in rows:
+            #     lesson = Lesson(*row)
+            #     lessons.append(lesson)
+        return lessons
+
+    def selectLessonsCount(self):
+        record_count = 0
+        conn = self._createConnection()
+        with conn:
+            sql = app.config['SQL_SELECT_LESSON_COUNT'].format(offset, row_count)
+            cur = conn.cursor()
+            cur.execute(sql)
+            rows = cur.fetchall()
+            for row in rows:
+                record_count = row
+                break
+        return record_count
+
+    def findLessons(self,query):
+        """
+
+        :param
+        :return:Lesson
+        """
+        lessons = []
+        conn = self._createConnection()
+        with conn:
+            sql = app.config['SQL_SELECT_FIND_LESSON'].format(query,query,query,query,0,app.config['SQL_ROW_COUNT'])
             cur = conn.cursor()
             cur.execute(sql)
             lessons = [Lesson(*row) for row in cur.fetchall()]

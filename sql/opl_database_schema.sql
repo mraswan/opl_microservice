@@ -133,6 +133,18 @@ INNER JOIN user
     ON lesson.author_id = user.id;
 
 
-id, name, description, youtube_url, git_url, published_timestamp,
-                 category_id, category_name, sub_category_id, sub_category_name,
-                 author_name
+SELECT lesson.id, lesson.name, lesson.description, lesson.youtube_url, lesson.git_url, lesson.published_timestamp,
+                             category.id as category_id, category.name as category_name, sub_category.id as sub_category_id, sub_category.name as sub_category_name,
+                             user.username as author_name
+                    FROM category
+                    INNER JOIN sub_category
+                        ON category.id = sub_category.category_id
+                    INNER JOIN lesson
+                        ON sub_category.id = lesson.sub_category_id
+                    INNER JOIN user
+                        ON lesson.author_id = user.id
+                    WHERE
+                        lesson.name like '%explore%' or
+                        lesson.description like '%explore%' or
+                        category.name like '%explore%' or
+                        sub_category.name like '%explore%';
