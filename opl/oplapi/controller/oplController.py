@@ -7,7 +7,7 @@ oplns = oplApi.namespace('dynamic', description='OPL APIs')
 print("namespace " + oplns.name + " is setup.")
 
 sub_category = oplApi.model('SubCategory', {
-    'id': fields.String(attribute='id', description='Sub Category ID'),
+    'id': fields.Integer(attribute='id', description='Sub Category ID'),
     'name': fields.String(attribute='name', description='Sub Category Name'),
 })
 
@@ -15,13 +15,13 @@ sub_category = oplApi.model('SubCategory', {
 #  we need to have a class named "Category", with member field names: "id", "name", "sub_categories"
 # this call is found in model package (folder)
 category = oplApi.model('Category', {
-    'id': fields.String(attribute='id', description='Category ID'),
+    'id': fields.Integer(attribute='id', description='Category ID'),
     'name': fields.String(attribute='name', description='Category Name'),
     'sub_categories': fields.List(fields.Nested(sub_category))
 })
 
 lesson = oplApi.model('Lesson', {
-    'id': fields.String(attribute='id', description='Lesson ID'),
+    'id': fields.Integer(attribute='id', description='Lesson ID'),
     'name': fields.String(attribute='name', description='Lesson Name'),
     'description': fields.String(attribute='description', description='Description'),
     'youtube_url': fields.String(attribute='youtube_url', description='youtube_url'),
