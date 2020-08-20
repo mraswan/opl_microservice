@@ -26,7 +26,7 @@ class LessonDataAccess(DbConnect):
             if category_id is not None:
                 where_clause = " WHERE category.id = {}".format(category_id)
             if sub_category_id is not None:
-                where_clause = where_clause+" OR sub_category.id = {}".format(sub_category_id) if where_clause != "" else " WHERE sub_category.id = {}".format(sub_category_id)
+                where_clause = where_clause+" AND sub_category.id = {}".format(sub_category_id) if where_clause != "" else " WHERE sub_category.id = {}".format(sub_category_id)
 
             sql = app.config['SQL_SELECT_LESSON'].format(where_clause, offset, row_count)
             print(sql)
