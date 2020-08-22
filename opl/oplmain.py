@@ -97,8 +97,8 @@ class OplMain():
         def run(self):
             logger.info('******************* Run Application *******************')
             self.oplAPIApp.run(use_debugger=True, debug=True, use_reloader=True,
-                                port=self.oplAPIApp.config['SERVICE_PORT'],
-                                ssl_context='adhoc') # run on https
+                                port=self.oplAPIApp.config['SERVICE_PORT'])
+                                # ,ssl_context='adhoc') # run on https
 
     instance = None
     def __init__(self):

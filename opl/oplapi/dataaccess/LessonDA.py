@@ -40,11 +40,11 @@ class LessonDataAccess(DbConnect):
             #     lessons.append(lesson)
         return lessons
 
-    def selectLessonsCount(self):
+    def selectLessonById(self, lesson_id):
         record_count = 0
         conn = self._createConnection()
         with conn:
-            sql = app.config['SQL_SELECT_LESSON_COUNT'].format(offset, row_count)
+            sql = app.config['SQL_SELECT_LESSON_BY_ID'].format(lesson_id)
             cur = conn.cursor()
             cur.execute(sql)
             rows = cur.fetchall()
@@ -52,6 +52,19 @@ class LessonDataAccess(DbConnect):
                 record_count = row
                 break
         return record_count
+
+    def selectLessonsCount(self):
+        lesson = None
+        conn = self._createConnection()
+        with conn:
+            sql = app.config['SQL_SELECT_LESSON_COUNT'].format(offset, row_count)
+            cur = conn.cursor()
+            cur.execute(sql)
+            rows = cur.fetchall()
+            for row in rows:
+                lesson = row
+                break
+        return lesson
 
     def findLessons(self, query):
         """

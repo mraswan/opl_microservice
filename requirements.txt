@@ -1,6 +1,5 @@
-. flask==0.11.1
+flask==0.11.1
 simplejson==3.8.2
-# solrpy==0.9.7
 flask-swagger==0.2.12
 flask-restplus==0.9.2
 fake-factory==0.6.0
@@ -10,6 +9,5 @@ gunicorn==19.6.0
 json-logging-py==0.2
 Flask-Cache==0.13.1
 python-simplexml==0.1.5
-watson-developer-cloud>=2.2.6
 Werkzeug==0.16.1
 pyopenssl==19.1.0

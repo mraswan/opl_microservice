@@ -21,6 +21,10 @@ class OplService(object):
         retval = self.lessonDA.selectAllLessons(category_id, sub_category_id, offset, row_count)
         return retval
 
+    def get_lesson(self, lesson_id):
+        retval = self.lessonDA.selectAllLessons(category_id, sub_category_id, offset, row_count)
+        return retval
+
     def get_lessons_count(self):
         retval = self.lessonDA.selectLessonsCount()
         return retval

@@ -61,14 +61,14 @@ class LessonSearchController(Resource):
     @oplns.marshal_with(lesson)
     def get(self):
         # relVal = {}
-        '''list of lessons'''
+        '''find lessons by name, description, category or subcategory sorted by publish date'''
         args = LessonSearchController.parser.parse_args()
         service = OplService()
         print(args.get("query"))
         result = service.find_lessons(args.get("query"))
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
-@oplns.route('/lessons')
+@oplns.route('/lessonsx')
 class LessonController(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
@@ -79,7 +79,7 @@ class LessonController(Resource):
     @oplns.marshal_with(lesson)
     def get(self):
         # relVal = {}
-        '''list of lessons'''
+        '''list of lessons sorted by publish date'''
         args = LessonController.parser.parse_args()
         service = OplService()
         print(args.get("category"))
@@ -87,75 +87,20 @@ class LessonController(Resource):
         result = service.get_lessons(category_id = args.get("category"), sub_category_id = args.get("sub_category"), offset=0, row_count=app.config['SQL_ROW_COUNT'])
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
-# candidateinfo = oplApi.model('CandidateInfo', {
-#     'id': fields.String(attribute='id', description='Candidate ID'),
-#     'name': fields.String(attribute='name', description='Candidate Name'),
-#     'designation': fields.String(attribute='designation', description='Designation Title'),
-#     'expsummary': fields.String(attribute='expsummary', description='Experience Summary'),
-#     'industry': fields.String(attribute='industry', description='Industry'),
-#     'country': fields.String(attribute='country', description='Country'),
-#     'matchscore': fields.Float(attribute='matchscore', description='Match Score')
-# })
-# jobinfo = oplApi.model('JobInfo', {
-#     'id': fields.String(attribute='id', description='Job ID'),
-#     'title': fields.String(attribute='title', description='Title'),
-#     'description': fields.String(attribute='description', description='Description'),
-#     'url': fields.String(attribute='url', description='URL'),
-#     'matchscore': fields.Float(attribute='matchscore', description='Match Score'),
-#     'titlecategories': fields.String(attribute='title_categories', description='Title Categories'),
-#     'descriptioncategories': fields.String(attribute='description_categories', description='Description Categories')
-# })
-#
-# matchedJobs = oplApi.model('FindJobsResponse', {
-#     'recordCount': fields.Integer(attribute='recordCount', description='Record Count'),
-#     'jobInfos': fields.List(fields.Nested(jobinfo))
-# })
-
-
-# @sugg.route('/enrichedcandidates')
-# class EnrichedCandidatesController(Resource):
-#     parser = reqparse.RequestParser()
-#
-#     parser.add_argument('designation', type=str, help='Designation', required=True, location='args')
-#     parser.add_argument('designationcategories', type=str, help='Designation Categories', required=False, location='args')
-#     parser.add_argument('expsummarycetegories', type=str, help='Exp Summary cetegories', required=False, location='args')
-#     '''Matching Enriched Candidate Profiles to a Job'''
-#
-#     @sugg.doc('list_enrichedcandidates')
-#     @sugg.expect(parser, validate=True)
-#     @sugg.marshal_with(matchedCandidates)
-#     def get(self):
-#         '''Auto suggest a list of businesses based on input string'''
-#         args = EnrichedCandidatesController.parser.parse_args()
-#         service = FindService()
-#         print(args.get("designation"))
-#         print(args.get("designationcategories"))
-#         print(args.get("expsummarycetegories"))
-#         results = service.matchEnrichedCandidates(args.get("designation"),
-#                                                   "" if (args.get("designationcategories") == None) else args.get("designationcategories"),
-#                                                   "" if (args.get("expsummarycetegories") == None) else args.get("expsummarycetegories"))
-#         # httpStatusCode = 200
-#         # if results.statusCode <> "S_OK":
-#         #     httpStatusCode = 404
-#         return results
-#
-# @sugg.route('/candidates')
-# class CandidatesController(Resource):
-#     parser = reqparse.RequestParser()
-#     parser.add_argument('jobtitle', type=str, help='Job Title', required=True, location='args')
-#     '''Matching Candidates to a Job'''
-#
-#     @sugg.doc('list_candidates')
-#     @sugg.expect(parser, validate=True)
-#     @sugg.marshal_with(matchedCandidates)
-#     def get(self):
-#         '''Auto suggest a list of businesses based on input string'''
-#         args = CandidatesController.parser.parse_args()
-#         service = FindService()
-#         print(args.get("jobtitle"))
-#         results = service.matchCandidates(args.get("jobtitle"))
-#         # httpStatusCode = 200
-#         # if results.statusCode <> "S_OK":
-#         #     httpStatusCode = 404
-#         return results
-#         # , httpStatusCode
+@oplns.route('/lessons/<int:lesson_id>')
+class LessonController(Resource):
+    # parser = reqparse.RequestParser()
+    # parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
+    # parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
+    @oplns.doc('lesson_by_id')
+    # @oplns.expect(parser, validate=True)
+    @oplns.marshal_with(lesson)
+    def get(self, **kwargs):
+        # relVal = {}
+        '''lesson by id'''
+        service = OplService()
+        result = service.get_lessons(lesson_id = lesson_id)
+        if result is None:
+            return result, 404, {'Content-Type': 'application/json; charset=utf8'}
+        else:
+            return result, 200, {'Content-Type': 'application/json; charset=utf8'}
