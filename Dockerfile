@@ -11,7 +11,7 @@ RUN pip install -r /requirements.txt
 # Bundle app source
 COPY gunicorn.conf /gunicorn.conf
 COPY logging.conf /logging.conf
-COPY run.py /run.py
+COPY wsgi.py /run.py
 COPY __init__.py /__init__.py
 COPY RfyWAtsonDiscovery /RfyWAtsonDiscovery
 COPY config /config

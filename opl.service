@@ -1,0 +1,15 @@
+## It belongs here: /etc/systemd/system/opl.service
+
+[Unit]
+Description=Gunicorn instance to serve opl_microservice
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/opl_microservice
+Environment="PATH=/home/ubuntu/opl_microservice/venv3.8.2/bin"
+ExecStart=/home/ubuntu/opl_microservice/venv3.8.2/bin/gunicorn --workers 3 --bind unix:opl_microservice.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
