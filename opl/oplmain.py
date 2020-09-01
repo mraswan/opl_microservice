@@ -39,7 +39,7 @@ class OplMain():
         def __create_app(self):
             # oplAPIApp is the main application
             self.oplAPIApp = Flask(__name__)
-            cors = CORS(self.oplAPIApp, resources={r"/opl/*": {"origins": "*"}})
+            # cors = CORS(self.oplAPIApp, resources={r"/opl/*": {"origins": "*"}})
 
         def __register_blueprint_create_api(self):
             print ("Creating and registering Blueprints in oplAPIApp")

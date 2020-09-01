@@ -22,7 +22,7 @@ class OplService(object):
         return retval
 
     def get_lesson(self, lesson_id):
-        retval = self.lessonDA.selectAllLessons(category_id, sub_category_id, offset, row_count)
+        retval = self.lessonDA.selectLessonById(lesson_id)
         return retval
 
     def get_lessons_count(self):

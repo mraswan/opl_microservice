@@ -68,8 +68,8 @@ class LessonSearchController(Resource):
         result = service.find_lessons(args.get("query"))
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
-@oplns.route('/lessonsx')
-class LessonController(Resource):
+@oplns.route('/lessons')
+class LessonsController(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
     parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
@@ -80,7 +80,7 @@ class LessonController(Resource):
     def get(self):
         # relVal = {}
         '''list of lessons sorted by publish date'''
-        args = LessonController.parser.parse_args()
+        args = LessonsController.parser.parse_args()
         service = OplService()
         print(args.get("category"))
         print(args.get("sub_category"))
@@ -95,11 +95,11 @@ class LessonController(Resource):
     @oplns.doc('lesson_by_id')
     # @oplns.expect(parser, validate=True)
     @oplns.marshal_with(lesson)
-    def get(self, **kwargs):
+    def get(self, lesson_id, **kwargs):
         # relVal = {}
         '''lesson by id'''
         service = OplService()
-        result = service.get_lessons(lesson_id = lesson_id)
+        result = service.get_lesson(lesson_id = lesson_id)
         if result is None:
             return result, 404, {'Content-Type': 'application/json; charset=utf8'}
         else:
