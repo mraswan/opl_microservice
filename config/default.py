@@ -4,7 +4,8 @@ DATABASE_OPL = "db/opl_data.db"
 SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     select category.*, sub_category.* 
                                     from category inner join sub_category 
-                                    on category.id = sub_category.category_id;
+                                    on category.id = sub_category.category_id
+                                    order by category.name asc, sub_category.name asc;
                                     """
 SQL_ROW_COUNT = 20
 

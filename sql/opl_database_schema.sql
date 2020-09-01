@@ -62,6 +62,7 @@ INSERT into sub_category VALUES (4,"Node",1);
 INSERT into sub_category VALUES (5,"Angular",1);
 
 INSERT into sub_category VALUES (6,"Biology", 2);
+INSERT into sub_category VALUES (7,"Physics", 2);
 INSERT into sub_category VALUES (8,"Chemistry", 2);
 INSERT into sub_category VALUES (9,"Environmental Science", 2);
 
@@ -148,3 +149,10 @@ SELECT lesson.id, lesson.name, lesson.description, lesson.youtube_url, lesson.gi
                         lesson.description like '%explore%' or
                         category.name like '%explore%' or
                         sub_category.name like '%explore%';
+
+
+#inserting music into db
+INSERT into category VALUES (4,"Music");
+INSERT into sub_category VALUES (15,"Trumpet", 4);
+INSERT into sub_category VALUES (16,"Trombone", 4);
+INSERT into sub_category VALUES (17,"Flute", 4);
