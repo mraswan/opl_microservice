@@ -156,3 +156,36 @@ INSERT into category VALUES (4,"Music");
 INSERT into sub_category VALUES (15,"Trumpet", 4);
 INSERT into sub_category VALUES (16,"Trombone", 4);
 INSERT into sub_category VALUES (17,"Flute", 4);
+
+#
+
+#NEW VIDEOS!!!!
+INSERT into lesson VALUES (5,
+    "2. Data Types",
+    "Learn Python Data Types using PyCharm! This tutorial is for beginners who have never typed Python code. We will learn how to work with strings, numbers, and booleans. We will also learn how to output the data on the screen using print statements.",
+    "lOE-thp4YdE",
+    "https://github.com/BiggBird/OPL",
+    "1599936853",
+    1,
+    3,
+    2
+);
+
+#Update Datatypes Video
+UPDATE lesson SET name = "Data Tpes" WHERE id = 5;
+
+#Alter user table by adding name and replace username with email
+ALTER TABLE user ADD name TEXT;
+ALTER TABLE user ADD display_name TEXT;
+
+#Add users
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('tywongny@gmail.com', 'Tyler#04', 3, 'Tyler Wong', 'Tyler');
+
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('nithinparthas@gmail.com', 'Nithin#13', 3, 'Nithin Parthasarathy', 'Nithin');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('ksonowal2468@gmail.com', 'Kunal#07', 3, 'Kunal Sonowal', 'Kunal');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('huangeric50@gmail.com', 'Eric#05', 3, 'Eric Huang', 'Eric');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('eltonmanchester@gmail.com', 'Elton#10', 3, 'Elton Manchester', 'Elton');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('sooon337733@gmail.com', 'Edward#04', 3, 'Edward Chen', 'Edward');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('epicdavidx@gmail.com', 'David#04', 3, 'David Xing', 'David');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('aaronchou2004@gmail.com', 'Aaron#04', 3, 'Aaron Chou', 'Aaron');
+INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('adamkg30@gmail.com', 'Adam#06', 3, 'Adam Godina', 'Adam');
