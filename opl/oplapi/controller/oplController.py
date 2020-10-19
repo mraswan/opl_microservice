@@ -9,6 +9,7 @@ print("namespace " + oplns.name + " is setup.")
 sub_category = oplApi.model('SubCategory', {
     'id': fields.Integer(attribute='id', description='Sub Category ID'),
     'name': fields.String(attribute='name', description='Sub Category Name'),
+    'count': fields.Integer(attribute='count', description='Lesson Count'),
 })
 
 # marshall with this model, and it handles the multiplicity (array) automatically
@@ -17,6 +18,7 @@ sub_category = oplApi.model('SubCategory', {
 category = oplApi.model('Category', {
     'id': fields.Integer(attribute='id', description='Category ID'),
     'name': fields.String(attribute='name', description='Category Name'),
+    'count': fields.Integer(attribute='count', description='Lesson Count'),
     'sub_categories': fields.List(fields.Nested(sub_category))
 })
 

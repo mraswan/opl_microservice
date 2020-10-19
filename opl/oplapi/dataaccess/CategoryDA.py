@@ -110,7 +110,7 @@ class CategoryDataAccess(DbConnect):
                     category = Category(row[0], row[1])
                     categories.append(category)
                     prev_id = row[0]
-                category.addSubCategory(row[2], row[3])
+                category.addSubCategory(row[2], row[3], row[5])
         return categories
 
     # def selectByName(self, name):

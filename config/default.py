@@ -2,12 +2,28 @@ SERVICE_PORT = 8003
 
 DATABASE_OPL = "db/opl_data.db"
 SQL_SELECT_CATEGORY_SUB_CATEGORY = """
-                                    select category.*, sub_category.* 
-                                    from category inner join sub_category 
+                                    select category.*, sub_category.*, sub_cat_grp.sub_category_count
+                                    from category inner join sub_category
                                     on category.id = sub_category.category_id
+                                    LEFT OUTER JOIN
+                                    (SELECT sub_cat.id as sub_category_id,
+                                            count(sub_cat.id) as sub_category_count
+                                        FROM sub_category sub_cat
+                                        INNER JOIN lesson
+                                        ON sub_cat.id = lesson.sub_category_id
+                                        GROUP BY sub_cat.id) sub_cat_grp
+                                    on sub_cat_grp.sub_category_id = sub_category.id
                                     order by category.name asc, sub_category.name asc;
                                     """
-SQL_ROW_COUNT = 20
+
+# SQL_SELECT_CATEGORY_SUB_CATEGORY = """
+#                                     select category.*, sub_category.*
+#                                     from category inner join sub_category
+#                                     on category.id = sub_category.category_id
+#                                     order by category.name asc, sub_category.name asc;
+#                                     """
+
+SQL_ROW_COUNT = 50
 
 SQL_SELECT_LESSON = """
                     SELECT lesson.id, lesson.name, lesson.description, lesson.youtube_url, lesson.git_url, lesson.published_timestamp,

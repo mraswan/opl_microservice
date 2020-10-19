@@ -33,6 +33,12 @@ CREATE TABLE IF NOT EXISTS lesson(
     author_id INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS lesson_sub_category_xref(
+    id INTEGER PRIMARY KEY,
+    lesson_id INTEGER NOT NULL,
+    sub_category_id INTEGER NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS my_stuff(
     id INTEGER PRIMARY KEY,
     lesson_id INTEGER NOT NULL,
@@ -161,7 +167,7 @@ INSERT into sub_category VALUES (17,"Flute", 4);
 
 #NEW VIDEOS!!!!
 INSERT into lesson VALUES (5,
-    "2. Data Types",
+    "Python Data Types",
     "Learn Python Data Types using PyCharm! This tutorial is for beginners who have never typed Python code. We will learn how to work with strings, numbers, and booleans. We will also learn how to output the data on the screen using print statements.",
     "lOE-thp4YdE",
     "https://github.com/BiggBird/OPL",
@@ -172,7 +178,7 @@ INSERT into lesson VALUES (5,
 );
 
 #Update Datatypes Video
-UPDATE lesson SET name = "Data Tpes" WHERE id = 5;
+UPDATE lesson SET name = "Python Data Types" WHERE id = 5;
 
 #Alter user table by adding name and replace username with email
 ALTER TABLE user ADD name TEXT;

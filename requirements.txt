@@ -11,3 +11,6 @@ Flask-Cache==0.13.1
 python-simplexml==0.1.5
 Werkzeug==0.16.1
 pyopenssl==19.1.0
+
+oauthlib==3.0.1
+flask-login==0.4.1
