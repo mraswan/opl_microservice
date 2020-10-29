@@ -195,3 +195,108 @@ INSERT INTO user (username, password, user_type_id, name, display_name) VALUES (
 INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('epicdavidx@gmail.com', 'David#04', 3, 'David Xing', 'David');
 INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('aaronchou2004@gmail.com', 'Aaron#04', 3, 'Aaron Chou', 'Aaron');
 INSERT INTO user (username, password, user_type_id, name, display_name) VALUES ('adamkg30@gmail.com', 'Adam#06', 3, 'Adam Godina', 'Adam');
+
+#BIOTECHNOLOGY VIDEOS
+INSERT INTO sub_category (name, category_id) VALUES ("Biotechnology", 2);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Introduction to Bioremediation Part 1",
+    "Today we will be learning about Biotechnology and Bioremediation with Tyler Wong. The impact of chemical pollutants, genomic programs, microbe usage in Bioremediation, and aerobic and anaerobic biodegradation are all topics covered in this video.",
+    "2hIuENBhA94",
+    "",
+    "1603933727",
+    2,
+    18,
+    4
+);
+
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Introduction to Bioremediation Part 2: Deepwater Horizon oil spill",
+    "Today we will be learning more about Biotechnology and Bioremediation with Tyler Wong. We will be investigating the case study on the BP Deepwater oil spill in 2010, learning about the impacts it had on the ecosystem, marine life, and clean up crew. We will be specifically discussing containment booms, Corexit dispersant, and oil-eating microbes.",
+    "C7WYJJ3zfWI",
+    "",
+    "1603933914",
+    2,
+    18,
+    4
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Phytoremediation",
+    "What is Phytoremediation and how does it happen on a molecular level? We will explore this topic today with Tyler Wong and discover the pros and cons of using this method.",
+    "NsdeyweuIoo",
+    "",
+    "1603934257",
+    2,
+    18,
+    4
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Ex Situ and In Situ",
+    "Today we will explore the essential understanding of Ex Situ and In Situ with Tyler Wong. We will compare the differences and similarities between both methods.",
+    "ajgVNBbGbYg",
+    "",
+    "1603934415",
+    2,
+    18,
+    4
+);
+
+#Networking Videos
+INSERT into sub_category (name, category_id) VALUES (
+    "Networking",
+    1
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Introduction to OPL",
+    "I created this website, Online Peer Learning, which is a video hosting website where students can post and view videos that teach certain subjects, such as videos that teach mathematics, science, music, or computer science concepts. In this video, we will see all of the components of this website and how most websites are set up.",
+    "E6kAyqsPbkk",
+    "https://github.com/BiggBird/OPL",
+    "1603934754",
+    1,
+    19,
+    2
+);
