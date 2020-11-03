@@ -300,3 +300,47 @@ INSERT into lesson (name,
     19,
     2
 );
+
+#foreign languages category
+INSERT into category (name) VALUES ("Foreign Languages");
+INSERT into sub_category (name, category_id) VALUES ("Korean", 5);
+INSERT into sub_category (name, category_id) VALUES ("Spanish", 5);
+INSERT into sub_category (name, category_id) VALUES ("French", 5);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Basics of Hangul",
+    "Join Edward Chen and learn about how to read, write, and speak Korean! We will learn about Hangul, the writing system of the Korean language. The basics of Hangul covered today are how to pronounce constants and vowels. The list of the consonants and the vowels are slightly different from that of English but share the general idea of the English alphabet.",
+    "mpSf4ptZfCc",
+    "",
+    "1604375980",
+    5,
+    20,
+    9
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Play Vibrato",
+    "Many flute players utilize vibrato to make their playing sound more interesting, bringing depth to even the simplest of notes. In this video, Nithin Parthasarathy will introduce you to what vibrato is and a basic exercise to help learn it.",
+    "vTn3o6AF-YM",
+    "",
+    "1604378212",
+    4,
+    17,
+    5
+);
