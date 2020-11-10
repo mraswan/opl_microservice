@@ -344,3 +344,66 @@ INSERT into lesson (name,
     17,
     5
 );
+
+INSERT into category (name) VALUES ("Art");
+INSERT into sub_category (name, category_id) VALUES ("Pixel Art", 6);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Where to Start",
+    "Aaron Chou teaches the basics of pixel art and where to start making beautiful pixel art. You could use this knowledge for any videos, games, or art you are creating!",
+    "3MBRTCCvLwA",
+    "",
+    "1604380787",
+    6,
+    23,
+    11
+);
+
+INSERT into sub_category (name, category_id) VALUES ("Painting", 6);
+INSERT into sub_category (name, category_id) VALUES ("Digital Art", 6);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Form Embouchure",
+    "What is embouchure and how do I form my own embouchure? Today we will learn about those concepts with Kunal Sonowal. This tutorial is specifically for the trumpet, but it is also useful for people trying to form an embouchure for other brass instruments, such as the euphonium and trombone.",
+    "85OWxuDvrf4",
+    "",
+    "1604417602",
+    4,
+    15,
+    6
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Protein Synthesis",
+    "How are proteins made, a nutrient essential to all living things? Eric Huang teaches about the process of protein synthesis and the exact steps in making functioning proteins, including the two main steps, transcription and translation.",
+    "CR2C5kcYZUg",
+    "",
+    "1604537721",
+    2,
+    6,
+    7
+);
