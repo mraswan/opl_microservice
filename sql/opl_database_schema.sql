@@ -407,3 +407,22 @@ INSERT into lesson (name,
     6,
     7
 );
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Equation of a Line",
+    "Learn how to find the equation of a line using 2 points or given a specific scenario with David Xing.",
+    "Q0yRHEDRobI",
+    "",
+    "1606356697",
+    3,
+    10,
+    10
+);
