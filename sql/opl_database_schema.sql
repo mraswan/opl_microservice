@@ -426,3 +426,25 @@ INSERT into lesson (name,
     10,
     10
 );
+
+INSERT into category (name) VALUES ("Games");
+INSERT into sub_category (name, category_id) VALUES ("Chess", 7);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Rook Checkmates",
+    "Details the strategy and method on checkmating with one rook and king and with two rooks.",
+    "sa8TbxmfDac",
+    "",
+    "1608421304",
+    7,
+    26,
+    12
+);
