@@ -468,3 +468,23 @@ INSERT into lesson (name,
     27,
     2
 );
+
+INSERT into sub_category (name, category_id) VALUES ("Editing", 6);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Remove Static Noise Using Audacity",
+    "Learn how to remove the static/fuzzy sound when recording audio using Audacity.",
+    "aK_0upDDEks",
+    "",
+    "1611130251",
+    6,
+    28,
+    11
+);
