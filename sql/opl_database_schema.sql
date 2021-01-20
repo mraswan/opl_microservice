@@ -448,3 +448,23 @@ INSERT into lesson (name,
     26,
     12
 );
+
+INSERT into sub_category (name, category_id) VALUES ("Machine Learning", 1);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Intro to Machine Learning",
+    "Welcome to the world of artificial intelligence! It may seem overwhelming at first, but don't worry, because today we will talk about the simple basics and essential knowledge of machine learning! Machine learning is an application of AI where computer systems are able to function and learn through experience without being explicitly programmed. We will be using a website called Kaggle.com, a data science website owned by Google, to grasp the basics of machine learning and start coding! Knowing a little Python would be helpful.",
+    "Awh6RjjgKjw",
+    "",
+    "1611091677",
+    1,
+    27,
+    2
+);
