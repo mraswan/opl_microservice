@@ -488,3 +488,26 @@ INSERT into lesson (name,
     28,
     11
 );
+
+INSERT into sub_category (name, category_id) VALUES ("Music Theory", 4);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Read Music",
+    "Learn to read music for beginners with Eric Huang.",
+    "Af1vIftmbVA",
+    "",
+    "1611447045",
+    4,
+    29,
+    7
+);
+UPDATE lesson SET published_timestamp = 1611447045 WHERE id = 20;
+
+DELETE FROM lesson WHERE id in (1, 2, 3, 4);
