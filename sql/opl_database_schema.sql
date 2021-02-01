@@ -511,3 +511,22 @@ INSERT into lesson (name,
 UPDATE lesson SET published_timestamp = 1611447045 WHERE id = 20;
 
 DELETE FROM lesson WHERE id in (1, 2, 3, 4);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Buzzing",
+    "In the last video, we talked about how to form your embouchure, and now the next step is to start buzzing on your trumpet mouthpiece while keeping your embouchure in mind.",
+    "8EA70OkrTOU",
+    "",
+    "1604417602",
+    4,
+    15,
+    6
+); 
