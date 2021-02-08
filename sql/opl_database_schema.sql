@@ -529,4 +529,23 @@ INSERT into lesson (name,
     4,
     15,
     6
-); 
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Common Music Notation",
+    "David Xing highlights common music notation for beginners, including the basic principles of music.",
+    "oQxKa2acSaU",
+    "",
+    "1612742188",
+    4,
+    29,
+    10
+);
