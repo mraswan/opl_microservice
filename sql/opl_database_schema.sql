@@ -515,3 +515,104 @@ INSERT into lesson (name,
     26,
     12
 );
+
+INSERT into sub_category (name, category_id) VALUES ("Machine Learning", 1);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Intro to Machine Learning",
+    "Welcome to the world of artificial intelligence! It may seem overwhelming at first, but don't worry, because today we will talk about the simple basics and essential knowledge of machine learning! Machine learning is an application of AI where computer systems are able to function and learn through experience without being explicitly programmed. We will be using a website called Kaggle.com, a data science website owned by Google, to grasp the basics of machine learning and start coding! Knowing a little Python would be helpful.",
+    "Awh6RjjgKjw",
+    "",
+    "1611091677",
+    1,
+    27,
+    2
+);
+
+INSERT into sub_category (name, category_id) VALUES ("Editing", 6);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Remove Static Noise Using Audacity",
+    "Learn how to remove the static/fuzzy sound when recording audio using Audacity.",
+    "aK_0upDDEks",
+    "",
+    "1611130251",
+    6,
+    28,
+    11
+);
+
+INSERT into sub_category (name, category_id) VALUES ("Music Theory", 4);
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Read Music",
+    "Learn to read music for beginners with Eric Huang.",
+    "Af1vIftmbVA",
+    "",
+    "1611447045",
+    4,
+    29,
+    7
+);
+UPDATE lesson SET published_timestamp = 1611447045 WHERE id = 20;
+
+DELETE FROM lesson WHERE id in (1, 2, 3, 4);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Buzzing",
+    "In the last video, we talked about how to form your embouchure, and now the next step is to start buzzing on your trumpet mouthpiece while keeping your embouchure in mind.",
+    "8EA70OkrTOU",
+    "",
+    "1604417602",
+    4,
+    15,
+    6
+);
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Common Music Notation",
+    "David Xing highlights common music notation for beginners, including the basic principles of music.",
+    "oQxKa2acSaU",
+    "",
+    "1612742188",
+    4,
+    29,
+    10
+);
