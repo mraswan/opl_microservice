@@ -30,14 +30,14 @@ userDA = UserDataAccess(oplAPIApp.config['DATABASE_OPL'])
 def load_user(id):
     return userDA.selectById(id)
 
-@oplAPIApp.route("/home")
+@oplAPIApp.route("/opl/home")
 def hello():
     message = "Hello, World"
     return render_template('index.html', message=message)
 
 
 # homepage: /index
-@oplAPIApp.route("/index")
+@oplAPIApp.route("/opl/index")
 def index():
     print("index(): current_user.is_authenticated: {}".format(current_user.is_authenticated))
     if current_user.is_authenticated:
@@ -57,7 +57,7 @@ def index():
 def get_google_provider_cfg():
     return requests.get(oplAPIApp.config['GOOGLE_DISCOVERY_URL']).json()
 
-@oplAPIApp.route("/login")
+@oplAPIApp.route("/opl/login")
 def login():
     # Find out what URL to hit for Google login
     google_provider_cfg = get_google_provider_cfg()
@@ -75,7 +75,7 @@ def login():
 
 # login callback: /login/callback
 
-@oplAPIApp.route("/login/callback")
+@oplAPIApp.route("/opl/login/callback")
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
@@ -145,7 +145,7 @@ def callback():
     return redirect(oplAPIApp.config['GOOGLE_CALLBACK_URL'])
     # return redirect(url_for("index"))
 
-@oplAPIApp.route("/logout")
+@oplAPIApp.route("/opl/logout")
 @login_required
 def logout():
     logout_user()
@@ -153,7 +153,7 @@ def logout():
     # return redirect(url_for("index"))
 
 # redirect the root to swagger documentation
-@oplAPIApp.route('/')
+@oplAPIApp.route('/opl')
 def home():
     return redirect('/opl/doc/', code=302)
 
