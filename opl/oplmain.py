@@ -1,8 +1,11 @@
 from flask import Flask, Blueprint
 from flask_cors import CORS
 from flask_restplus import Api
+from flask_login import LoginManager
 import logging
 import urllib
+from oauthlib.oauth2 import WebApplicationClient
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -17,8 +20,12 @@ class OplMain():
             logger.info('*** Setting up Application ***')
             #create app
             self.__create_app()
-            #configure the application
+            # configure the application
             self.__configure_app()
+            #create Login Manager of the application
+            self.__create_login_manager()
+            #create OAuth Client of the application
+            self.__create_oauth2_client()
             # Register the oplAPIBlueprint
             self.__register_blueprint_create_api()
             # all routes built, lets print them
@@ -26,9 +33,27 @@ class OplMain():
             print("*** Setup Complete ***")
             # ~~~~~~ START THE APP HERE ~~~~~~~#
 
+        # User session management setup
+        # https://flask-login.readthedocs.io/en/latest
+        def __create_login_manager(self):
+            self.login_manager = LoginManager()
+            self.login_manager.init_app(self.oplAPIApp)
+            print("Login Manager Created!!!")
+
+        def __create_oauth2_client(self):
+            # OAuth 2 client setup
+            self.oauth2_client = WebApplicationClient(self.oplAPIApp.config['OPL_GOOGLE_CLIENT_ID'])
+            print("OAuth2 Client Created!!!")
+
         def setup_controllers(self):
             from opl.oplapi.controller import oplController
             print("All Controllers Setup!!!")
+
+        def get_login_manager(self):
+            return self.login_manager
+
+        def get_oauth2_client(self):
+            return self.oauth2_client
 
         def get_app(self):
             return self.oplAPIApp
@@ -40,6 +65,7 @@ class OplMain():
             # oplAPIApp is the main application
             self.oplAPIApp = Flask(__name__)
             # cors = CORS(self.oplAPIApp, resources={r"/opl/*": {"origins": "*"}})
+            self.oplAPIApp.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
 
         def __register_blueprint_create_api(self):
             print ("Creating and registering Blueprints in oplAPIApp")
@@ -64,10 +90,11 @@ class OplMain():
             # Load the configuration from the instance folder this is not to be checked in to git
             # add following line (with #) to your .git/info/exclude file instance
             try:
-                self.oplAPIApp.config.from_pyfile('../instance/config.py')
-                print ('"../instance/config.py" as pyfile read successfully')
+                local_config = '../instance/config.py'
+                self.oplAPIApp.config.from_pyfile(local_config)
+                print ('"{}" as pyfile read successfully'.format(local_config))
             except:
-                print ('problem reading "../instance/config.py" as pyfile. But moving on ...')
+                print ('problem reading "{}" as pyfile. But moving on ...'.format(local_config))
 
             # Load the file specified by the APP_CONFIG_FILE environment variable
             # Variables defined here will override those in the default configuration
@@ -94,11 +121,11 @@ class OplMain():
                 print(line)
             print ("~~~~~~~~~~~~~~~~~~~~~")
 
-        def run(self):
+        def run(self, ssl_context=None):
             logger.info('******************* Run Application *******************')
             self.oplAPIApp.run(use_debugger=True, debug=True, use_reloader=True,
-                                port=self.oplAPIApp.config['SERVICE_PORT'])
-                                # ,ssl_context='adhoc') # run on https
+                                port=self.oplAPIApp.config['SERVICE_PORT']
+                                ,ssl_context=ssl_context) # run on https
 
     instance = None
     def __init__(self):

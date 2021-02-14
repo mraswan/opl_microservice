@@ -2,6 +2,11 @@ from flask_restplus import Api, Resource, fields, reqparse
 from opl import oplAPIApp as app
 from opl import oplApi
 from opl.oplapi.service.opl_service import OplService
+from flask_login import current_user
+import requests
+from opl import oplOAuth2Client
+from flask import redirect, make_response, request, url_for
+
 
 oplns = oplApi.namespace('dynamic', description='OPL APIs')
 print("namespace " + oplns.name + " is setup.")
@@ -106,3 +111,24 @@ class LessonController(Resource):
             return result, 404, {'Content-Type': 'application/json; charset=utf8'}
         else:
             return result, 200, {'Content-Type': 'application/json; charset=utf8'}
+
+user = oplApi.model('User', {
+    'id': fields.Integer(attribute='id', description='User Internal ID'),
+    'email': fields.String(attribute='email', description='email'),
+    'name': fields.String(attribute='name', description='Name'),
+    'display_name': fields.String(attribute='display_name', description='Display Name'),
+    'google_id': fields.String(attribute='google_id', description='google_id'),
+    'profile_pic': fields.String(attribute='profile_pic', description='profile_pic'),
+    'user_type_id': fields.Integer(attribute='user_type_id', description='user_type_id'),
+    'is_active': fields.Boolean(attribute='is_active', description='is_active'),
+    'is_anonymous': fields.Boolean(attribute='is_anonymous', description='is_anonymous'),
+    'is_authenticated': fields.Boolean(attribute='is_authenticated', description='is_authenticated')
+})
+
+@oplns.route('/current_user')
+class CurrentUserController(Resource):
+    @oplns.doc('current_user')
+    @oplns.marshal_with(user)
+    def get(self):
+        print("/current_user -> current_user.is_authenticated: {}".format(current_user.is_authenticated))
+        return current_user, 200, {'Content-Type': 'application/json; charset=utf8'}

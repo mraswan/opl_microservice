@@ -39,3 +39,6 @@ select category.*, sub_category.*, sub_cat_grp.sub_category_count
         order by category.name asc, sub_category.name asc;
 
 select id, sub_category_id from lesson;
+
+Insert into user_new (id, user_type_id, email, name, display_name, user_type_id )
+        from SELECT id, user_type_id, username, name, display_name, user_type_id from user;

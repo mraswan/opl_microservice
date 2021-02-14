@@ -9,12 +9,79 @@ INSERT into user_type VALUES (1, 'super');
 INSERT into user_type VALUES (2, 'power');
 INSERT into user_type VALUES (3, 'user');
 
-CREATE TABLE IF NOT EXISTS user(
+CREATE TABLE IF NOT EXISTS user_new(
     id INTEGER PRIMARY KEY,
-    username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    google_id TEXT,
+    profile_pic TEXT,
     user_type_id INTEGER NOT NULL
 );
+
+Insert into user_new (id, user_type_id, email, name, display_name, user_type_id )
+ SELECT id, user_type_id, username, name, display_name, user_type_id from user;
+
+ALTER TABLE user RENAME TO user_old;
+ALTER TABLE user_new RENAME TO user;
+
+--# ------
+--# PRAGMA foreign_keys=off;
+--#
+--# BEGIN TRANSACTION;
+--#
+--# ALTER TABLE app RENAME TO old_2_app;
+--#
+--# CREATE TABLE IF NOT EXISTS app (
+--#                                 id integer PRIMARY KEY,
+--#                                 app_id text NOT NULL,
+--#                                 user text NOT NULL,
+--#                                 name text NOT NULL,
+--#                                 app_type text NOT NULL,
+--#                                 queue text NOT NULL,
+--#                                 start_time int NOT NULL,
+--#                                 end_time int,
+--#                                 state text,
+--#                                 final_state text,
+--#                                 tracking_url text,
+--#                                 memory_seconds integer,
+--#                                 vcore_seconds integer,
+--#                                 preempted_mem_gb real,
+--#                                 preempted_vcores integer,
+--#                                 UNIQUE(app_id)
+--#                             );
+--#
+--# INSERT INTO app (id,
+--#                 app_id,
+--#                 user,
+--#                 name,
+--#                 app_type,
+--#                 queue,
+--#                 start_time,
+--#                 end_time,
+--#                 state ,
+--#                 final_state ,
+--#                 tracking_url)
+--# SELECT
+--#               id,
+--#               app_id,
+--#               user,
+--#               name,
+--#               app_type,
+--#               queue,
+--#               start_time,
+--#               end_time,
+--#               state ,
+--#               final_state ,
+--#               tracking_url
+--#             FROM old_2_app;
+--#
+--# COMMIT;
+--#
+--# PRAGMA foreign_keys=on;
+--
+--# -----
+
 
 INSERT into user VALUES (1, "meghna","meghna",1);
 INSERT into user VALUES (2, "shaurya","shaurya",2);

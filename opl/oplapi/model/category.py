@@ -6,8 +6,13 @@ class Category(object):
         self.count = 0
         self.sub_categories = []
 
-    def addSubCategory(self, id, name, count=0):
+# <<<<<<< Updated upstream
+#     def addSubCategory(self, id, name, count=0):
+#         self.sub_categories.append(SubCategory(id, name, count))
+# =======
+    def addSubCategory(self, id, name, count):
         self.sub_categories.append(SubCategory(id, name, count))
+# >>>>>>> Stashed changes
         self.count = self.count + (count if count is not None else 0)
 
 class SubCategory(object):

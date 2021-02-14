@@ -1,12 +1,10 @@
 Download and Run
 ==============
-
 Download
 --------------
 	git clone https://github.com/mraswan/opl_microservice.git
 	cd opl_microservice
 	pip install -r requirements
-
 Prerequisite (to Run)
 --------------
 Install needed modules
@@ -17,8 +15,6 @@ Install needed modules
     run the commands in sql/opl_daanase_schema.sql in the db	
 Configuration (if you need to change)
 --------------
-
-
 Run
 --------------
 - Run for development using:
@@ -33,7 +29,6 @@ Run
 Run as a service in Linux
 ----
     place service file here: /etc/systemd/system/opl.service
-
 Run in Docker
 --------------
 Assumes that you have Docker Installed from here.
@@ -46,10 +41,13 @@ Instructions to build and run.
     $ docker build -t docker-image:opl_microservice .
     $ docker run -e GUNICORN_WORKERS=4 -e GUNICORN_ACCESSLOG=- -p 5000:5000 docker-image:opl_microservice
 
-
 Documentation Swagger
 ---------------------
 - http://localhost:5000/ -> It redirect to the documentation URL
 - http://localhost:5000/opl/doc/
+
+Local Setup
+-----------
+/usr/local/etc/nginx/nginx.conf
 
 

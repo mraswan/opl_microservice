@@ -1,12 +1,18 @@
 SERVICE_PORT = 8003
 
+GOOGLE_CALLBACK_URL="https://www.oplearning.org"
+
+GOOGLE_DISCOVERY_URL=GOOGLE_DISCOVERY_URL = (
+    "https://accounts.google.com/.well-known/openid-configuration"
+)
+
 DATABASE_OPL = "db/opl_data.db"
 SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     select category.*, sub_category.*, sub_cat_grp.sub_category_count
                                     from category inner join sub_category
                                     on category.id = sub_category.category_id
                                     LEFT OUTER JOIN
-                                    (SELECT sub_cat.id as sub_category_id,
+                                    (SELECT sub_cat.id as sub_category_id,  
                                             count(sub_cat.id) as sub_category_count
                                         FROM sub_category sub_cat
                                         INNER JOIN lesson
@@ -84,10 +90,36 @@ SQL_SELECT_FIND_LESSON = """
                         limit {},{};"""
 
 
-# SOLR_BASE = 'http://localhost:8983/solr'
-# SOLR_COLLECTION_TALENT = '/dbAcc'
-# SOLR_SELECT = '/select?'
-# SOLR_DATA_IMPORT = '/dataimport?'
-# SOLR_DATA_IMPORT_COMMAND = 'command='
-# SOLR_DATA_IMPORT_ENTITY = '&entity='
-# SOLR_DATA_IMPORT_CLEAN = '&clean='
+SQL_SELECT_USER_BY_GOOGLE_ID = """
+                    SELECT id, email, name, display_name, google_id, profile_pic, user_type_id 
+                    FROM user WHERE google_id = ?;
+                    """
+SQL_SELECT_USER_BY_ID = """
+                    SELECT id, email, name, display_name, google_id, profile_pic, user_type_id 
+                    FROM user WHERE id = ?;
+                    """
+
+SQL_SELECT_USER_BY_EMAIL = """
+                    SELECT id, email, name, display_name, google_id, profile_pic, user_type_id 
+                    FROM user WHERE email = ?;
+                    """
+
+SQL_UPDATE_GOOGLE_INFO = """
+                    UPDATE user 
+                    SET 
+                    name = ?,
+                    display_name = ?, 
+                    google_id = ?,
+                    profile_pic = ?
+                    WHERE email = ?;
+                    """
+
+SQL_INSERT_USER = """
+                    INSERT INTO user 
+                            (email, name, display_name, google_id, profile_pic, user_type_id) 
+                    VALUES 
+                            (?, ?, ?, ?, ?, ?);
+                    """
+
+# Insert into user_new (id, user_type_id,  )
+#         from SELECT id, user_type_id, username, name, display_name from user;
