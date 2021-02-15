@@ -45,8 +45,8 @@ def index():
             "<p>Hello, {}! You're logged in! Email: {}</p>"
             "<div><p>Google Profile Picture:</p>"
             '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'
-            '<br/><br/><a class="button" href="/logout">Google Logout</a>'.format(
+            '<a class="button" href="/opl/logout">Logout</a>'
+            '<br/><br/><a class="button" href="/opl/logout">Google Logout</a>'.format(
                 current_user.name, current_user.email, current_user.profile_pic
             )
         )
@@ -65,12 +65,17 @@ def login():
 
     # Use library to construct the request for Google login and provide
     # scopes that let you retrieve user's profile from Google
+    base_url = request.base_url
+    print("login(): base_url: {}".format(base_url))
+    if(request.base_url.startswith("http:")):
+        base_url = request.base_url.replace("http:","https:")
+    print("login(): base_url: {}".format(base_url))
     request_uri = oplOAuth2Client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
-    print("login(): current_user.is_authenticated: {}".format(current_user.is_authenticated))
+    print("login(): current_user.is_authenticated: {}, request_uri: {}".format(current_user.is_authenticated, request_uri))
     return redirect(request_uri)
 
 # login callback: /login/callback
@@ -79,6 +84,7 @@ def login():
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
+    print("callback(): code: {}".format(code))
 
     # Find out what URL to hit to get tokens that allow you to ask for
     # things on behalf of a user
@@ -86,10 +92,18 @@ def callback():
     token_endpoint = google_provider_cfg["token_endpoint"]
 
     # Prepare and send a request to get tokens! Yay tokens!
+    print("callback(): request.base_url: {}, request.url: {}".format(request.base_url, request.url))
+    base_url = request.base_url
+    if(request.base_url.startswith("http:")):
+        base_url = request.base_url.replace("http:","https:")
+    url = request.url
+    if(request.url.startswith("http:")):
+        url = request.base.replace("http:","https:")
+    print("callback(): base_url: {}, url: {}".format(base_url, url))
     token_url, headers, body = oplOAuth2Client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
+        authorization_response=url,
+        redirect_url=base_url,
         code=code
     )
     token_response = requests.post(
