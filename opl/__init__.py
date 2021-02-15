@@ -98,7 +98,7 @@ def callback():
         base_url = request.base_url.replace("http:","https:")
     url = request.url
     if(request.url.startswith("http:")):
-        url = request.base.replace("http:","https:")
+        url = request.url.replace("http:","https:")
     print("callback(): base_url: {}, url: {}".format(base_url, url))
     token_url, headers, body = oplOAuth2Client.prepare_token_request(
         token_endpoint,
