@@ -19,6 +19,10 @@ class Contributor(User):
         # it is a hash of sub_categories that contributor has contributor and the count of lessons
         self.skills = {}
 
+    def addSkillWithCount(self, skill_name, skill_count):
+        if skill_name not in self.skills:
+            self.skills[skill_name] = skill_count
+
     #  add sub categories as skills
     def addSkill(self, sub_category_name):
         if sub_category_name not in self.skills:

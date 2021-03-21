@@ -49,6 +49,29 @@ class UserDataAccess(DbConnect):
             print(e)
         return contributors
 
+    def selectContributorsAndSkills(self):
+        contributors_sills = {}
+        conn = self._createConnection()
+        try:
+            with conn:
+                sql = app.config['SQL_SELECT_CONTRIBUTORS_N_SKILLS']
+                cur = conn.cursor()
+                cur.execute(sql,)
+                # contributors = [Contributor(*row) for row in cur.fetchall()]
+                rows = cur.fetchall();
+                for row in rows:
+                    if row[0] not in contributors_sills:
+                        skill_n_counts = {row[1]: 1}
+                        contributors_sills[row[0]] = skill_n_counts
+                    else:
+                        skill_n_counts = contributors_sills[row[0]]
+                        if row[1] not in skill_n_counts:
+                            skill_n_counts[row[1]] = 1
+                        else:
+                            skill_n_counts[row[1]] = skill_n_counts[row[1]] + 1
+        except Error as e:
+            print(e)
+        return contributors_sills
 
     def selectByGoogleId(self, google_id):
         user = None

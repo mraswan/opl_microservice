@@ -36,8 +36,12 @@ class OplService(object):
         return retval
 
     def get_contributors(self):
-        retval = self.userDA.selectContributors()
-        return retval
+        contributors = self.userDA.selectContributors()
+        contributors_sills = self.userDA.selectContributorsAndSkills()
+        for contributor in contributors:
+            for (skill_name,skill_count) in contributors_sills[contributor.id].items():
+                contributor.addSkillWithCount(skill_name, skill_count)
+        return contributors
 
     def get_contributor(self, user_id):
         contributor = self.userDA.selectContributorByUserId(user_id)
