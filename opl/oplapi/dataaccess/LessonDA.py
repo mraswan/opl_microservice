@@ -56,6 +56,16 @@ class LessonDataAccess(DbConnect):
                 break
         return lesson
 
+    def selectLessonByUserId(self, user_id):
+        lessons = None
+        conn = self._createConnection()
+        with conn:
+            sql = app.config['SQL_SELECT_LESSONS_BY_CONTRIBUTOR'].format(user_id)
+            cur = conn.cursor()
+            cur.execute(sql, (user_id,))
+            lessons = [Lesson(*row) for row in cur.fetchall()]
+        return lessons
+
     def selectLessonsCount(self):
         record_count = 0
         conn = self._createConnection()

@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_restplus import Api
 from flask_login import LoginManager
 import logging
+from logging import Formatter
 import urllib
 from oauthlib.oauth2 import WebApplicationClient
 import os
@@ -115,10 +116,11 @@ class OplMain():
 
         def __configure_logging(self):
             logFile = "{}/{}".format(self.oplAPIApp.config['LOG_DIR'] , self.oplAPIApp.config['LOG_FILE'])
-            file_handler = MultiProcessingLogHandler(logFile, mode='a',
-                                              maxBytes=self.oplAPIApp.config['LOG_FILE_SIZE'],
-                                              backupCount=self.oplAPIApp.config['LOG_BACKUP_COUNT'],
-                                              max_workers=self.oplAPIApp.config['LOG_THREAD_POOL'])
+            file_handler = MultiProcessingLogHandler(name=logFile,
+                                                    mode='a',
+                                                    log_size_in_bytes=self.oplAPIApp.config['LOG_FILE_SIZE_IN_BYTES'],
+                                                    backup_count=self.oplAPIApp.config['LOG_BACKUP_COUNT'],
+                                                    max_workers=self.oplAPIApp.config['LOG_THREAD_POOL_COUNT'])
             console_handler = logging.StreamHandler()
             handler_list = self.oplAPIApp.logger.handlers[:]
             for log_handler in handler_list:

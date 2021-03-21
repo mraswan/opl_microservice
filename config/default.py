@@ -127,5 +127,39 @@ SQL_INSERT_USER = """
                             (?, ?, ?, ?, ?, ?);
                     """
 
+SQL_SELECT_CONTRIBUTORS = """SELECT user.id, user.email, user.name, user.display_name, user.google_id, user.profile_pic, user.user_type_id,
+                                '' as about_me,
+                                count(*) as lesson_count
+                            FROM lesson
+                            INNER JOIN user
+                                ON lesson.author_id = user.id
+                            GROUP BY
+                                user.id
+                            ORDER BY 
+                                user.id ASC;"""
+
+SQL_SELECT_CONTRIBUTOR_BY_ID = """SELECT user.id, user.email, user.name, user.display_name, user.google_id, user.profile_pic, user.user_type_id,
+                                '' as about_me,
+                                count(*) as lesson_count
+                            FROM lesson
+                            INNER JOIN user
+                                ON lesson.author_id = user.id
+                                AND user.id = ?
+                            GROUP BY
+                                user.id;
+                    """
+
+SQL_SELECT_LESSONS_BY_CONTRIBUTOR = """SELECT lesson.id, lesson.name, lesson.description, lesson.youtube_url, lesson.git_url, lesson.published_timestamp,
+                             category.id as category_id, category.name as category_name, sub_category.id as sub_category_id, sub_category.name as sub_category_name,
+                             user.display_name as author_name
+                                FROM category
+                                INNER JOIN sub_category
+                                    ON category.id = sub_category.category_id
+                                INNER JOIN lesson
+                                    ON sub_category.id = lesson.sub_category_id
+                                INNER JOIN user
+                                    ON lesson.author_id = user.id
+                                WHERE user.id = ?;"""
+
 # Insert into user_new (id, user_type_id,  )
 #         from SELECT id, user_type_id, username, name, display_name from user;

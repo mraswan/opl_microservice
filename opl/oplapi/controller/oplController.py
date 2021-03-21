@@ -80,18 +80,20 @@ class LessonsController(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
     parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
+    parser.add_argument('user_id', type=int, help='User ID', required=False, location='args')
 
     @oplns.doc('list_lessons')
     @oplns.expect(parser, validate=True)
     @oplns.marshal_with(lesson)
     def get(self):
-        # relVal = {}
         '''list of lessons sorted by publish date'''
         args = LessonsController.parser.parse_args()
         service = OplService()
-        print(args.get("category"))
-        print(args.get("sub_category"))
-        result = service.get_lessons(category_id = args.get("category"), sub_category_id = args.get("sub_category"), offset=0, row_count=app.config['SQL_ROW_COUNT'])
+        if(args.get("user_id") is not None):
+            result = service.get_lessons_by_user(args.get("user_id"))
+        else:
+            print("{}, {}".format(args.get("category"),args.get("sub_category")))
+            result = service.get_lessons(category_id = args.get("category"), sub_category_id = args.get("sub_category"), offset=0, row_count=app.config['SQL_ROW_COUNT'])
         return result, 200, {'Content-Type': 'application/json; charset=utf8'}
 
 @oplns.route('/lessons/<int:lesson_id>')
@@ -132,3 +134,47 @@ class CurrentUserController(Resource):
     def get(self):
         print("/current_user -> current_user.is_authenticated: {}".format(current_user.is_authenticated))
         return current_user, 200, {'Content-Type': 'application/json; charset=utf8'}
+
+
+# skill = oplApi.model('Dict', {
+#     'name': fields.String(attribute='key', description='Category Name'),
+#     'count': fields.Integer(attribute='value', description='Lesson Count'),
+# })
+
+contributor = oplApi.model('Contributor', {
+    'id': fields.Integer(attribute='id', description='User Internal ID'),
+    'email': fields.String(attribute='email', description='email'),
+    'name': fields.String(attribute='name', description='Name'),
+    'display_name': fields.String(attribute='display_name', description='Display Name'),
+    'profile_pic': fields.String(attribute='profile_pic', description='profile_pic'),
+    'user_type_id': fields.Integer(attribute='user_type_id', description='user_type_id'),
+    'lesson_count': fields.Integer(attribute='lesson_count', description='lesson_count'),
+    'about_me': fields.String(attribute='about_me', description='about_me'),
+    'skills': fields.Raw(attribute='skills', description='skills')
+})
+
+@oplns.route('/contributors')
+class ContributorsController(Resource):
+    @oplns.doc('contributors')
+    @oplns.marshal_with(contributor)
+    def get(self):
+        service = OplService()
+        contributors = service.get_contributors()
+        return contributors, 200, {'Content-Type': 'application/json; charset=utf8'}
+
+@oplns.route('/contributor/<int:user_id>')
+class ContributorController(Resource):
+    # parser = reqparse.RequestParser()
+    # parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
+    # parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
+    @oplns.doc('user_by_id')
+    # @oplns.expect(parser, validate=True)
+    @oplns.marshal_with(contributor)
+    def get(self, user_id, **kwargs):
+        '''user by id'''
+        service = OplService()
+        result = service.get_contributor(user_id)
+        if result is None:
+            return result, 404, {'Content-Type': 'application/json; charset=utf8'}
+        else:
+            return result, 200, {'Content-Type': 'application/json; charset=utf8'}

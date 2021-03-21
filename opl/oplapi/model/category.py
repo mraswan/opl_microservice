@@ -12,7 +12,6 @@ class Category(object):
 # =======
     def addSubCategory(self, id, name, count):
         self.sub_categories.append(SubCategory(id, name, count))
-# >>>>>>> Stashed changes
         self.count = self.count + (count if count is not None else 0)
 
 class SubCategory(object):

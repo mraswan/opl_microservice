@@ -1,6 +1,7 @@
 import logging
 from opl.oplapi.dataaccess.CategoryDA import CategoryDataAccess
 from opl.oplapi.dataaccess.LessonDA import LessonDataAccess
+from opl.oplapi.dataaccess.UserDA import UserDataAccess
 
 from opl import oplAPIApp as app
 logging.basicConfig(level=logging.DEBUG)
@@ -11,6 +12,7 @@ class OplService(object):
         self.counter = 0
         self.catDA = CategoryDataAccess(app.config['DATABASE_OPL'])
         self.lessonDA = LessonDataAccess(app.config['DATABASE_OPL'])
+        self.userDA = UserDataAccess(app.config['DATABASE_OPL'])
 
     #List All Categories and Sub-Categories
     def get_categories(self):
@@ -32,3 +34,19 @@ class OplService(object):
     def find_lessons(self, query):
         retval = self.lessonDA.findLessons(query)
         return retval
+
+    def get_contributors(self):
+        retval = self.userDA.selectContributors()
+        return retval
+
+    def get_contributor(self, user_id):
+        contributor = self.userDA.selectContributorByUserId(user_id)
+        lessons = self.lessonDA.selectLessonByUserId(user_id)
+        for lesson in lessons:
+            contributor.addSkill(lesson.sub_category.name)
+        return contributor
+
+    def get_lessons_by_user(self, user_id):
+        retval = self.lessonDA.selectLessonByUserId(user_id)
+        return retval
+

@@ -1,7 +1,7 @@
 from sqlite3 import Error
 from ..dataaccess.DbConnect import DbConnect
 from opl import oplAPIApp as app
-from opl.oplapi.model.user import User
+from opl.oplapi.model.user import User, Contributor
 
 class UserDataAccess(DbConnect):
 
@@ -19,6 +19,36 @@ class UserDataAccess(DbConnect):
         except Error as e:
             print(e)
         return user
+
+    def selectContributorByUserId(self, user_id):
+        contributor = None
+        conn = self._createConnection()
+        try:
+            with conn:
+                sql = app.config['SQL_SELECT_CONTRIBUTOR_BY_ID']
+                cur = conn.cursor()
+                cur.execute(sql, (user_id,))
+                row = cur.fetchone()
+                if row is not None:
+                    contributor = Contributor(*row)
+        except Error as e:
+            print(e)
+        return contributor
+
+
+    def selectContributors(self):
+        contributors = None
+        conn = self._createConnection()
+        try:
+            with conn:
+                sql = app.config['SQL_SELECT_CONTRIBUTORS']
+                cur = conn.cursor()
+                cur.execute(sql,)
+                contributors = [Contributor(*row) for row in cur.fetchall()]
+        except Error as e:
+            print(e)
+        return contributors
+
 
     def selectByGoogleId(self, google_id):
         user = None

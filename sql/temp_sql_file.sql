@@ -42,3 +42,16 @@ select id, sub_category_id from lesson;
 
 Insert into user_new (id, user_type_id, email, name, display_name, user_type_id )
         from SELECT id, user_type_id, username, name, display_name, user_type_id from user;
+
+
+SELECT user.name as name,
+        user.display_name as display_name,
+        user.email as email,
+        user.profile_pic as profile_pic,
+        count(*) as lesson_count
+                    FROM lesson
+                    INNER JOIN user
+                        ON lesson.author_id = user.id
+                 GROUP BY
+                    user.id
+                 ORDER BY user.id ASC;
