@@ -17,7 +17,7 @@ SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     select category.*, sub_category.*, sub_cat_grp.sub_category_count
                                     from category inner join sub_category
                                     on category.id = sub_category.category_id
-                                    LEFT OUTER JOIN
+                                    INNER JOIN
                                     (SELECT sub_cat.id as sub_category_id,  
                                             count(sub_cat.id) as sub_category_count
                                         FROM sub_category sub_cat
@@ -27,6 +27,21 @@ SQL_SELECT_CATEGORY_SUB_CATEGORY = """
                                     on sub_cat_grp.sub_category_id = sub_category.id
                                     order by category.name asc, sub_category.name asc;
                                     """
+
+# """
+#                                     select category.*, sub_category.*, sub_cat_grp.sub_category_count
+#                                     from category inner join sub_category
+#                                     on category.id = sub_category.category_id
+#        -->                             LEFT OUTER JOIN
+#                                     (SELECT sub_cat.id as sub_category_id,
+#                                             count(sub_cat.id) as sub_category_count
+#                                         FROM sub_category sub_cat
+#                                         INNER JOIN lesson
+#                                         ON sub_cat.id = lesson.sub_category_id
+#                                         GROUP BY sub_cat.id) sub_cat_grp
+#                                     on sub_cat_grp.sub_category_id = sub_category.id
+#                                     order by category.name asc, sub_category.name asc;
+#                                     """
 
 # SQL_SELECT_CATEGORY_SUB_CATEGORY = """
 #                                     select category.*, sub_category.*

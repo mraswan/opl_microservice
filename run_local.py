@@ -5,7 +5,7 @@ from flask_cors import CORS
 oplAPIApp = oplMain.get_app()
 cors = CORS(oplAPIApp, resources={r"/opl/*": {"origins": "*"}})
 if __name__ == '__main__':
-   oplMain.run()# ssl_context="adhoc") # adhoc ssl enabled
+   oplMain.run(ssl_context="adhoc") # adhoc ssl enabled
    # oplMain.run()
 
 # CORS added for local run
