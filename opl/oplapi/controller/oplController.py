@@ -81,6 +81,7 @@ class LessonsController(Resource):
     parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
     parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
     parser.add_argument('user_id', type=int, help='User ID', required=False, location='args')
+    parser.add_argument('user_handle', type=str, help='User Handle', required=False, location='args')
 
     @oplns.doc('list_lessons')
     @oplns.expect(parser, validate=True)
@@ -91,6 +92,8 @@ class LessonsController(Resource):
         service = OplService()
         if(args.get("user_id") is not None):
             result = service.get_lessons_by_user(args.get("user_id"))
+        elif (args.get("user_handle") is not None):
+            result = service.get_lessons_by_user_handle(args.get("user_handle"))
         else:
             print("{}, {}".format(args.get("category"),args.get("sub_category")))
             result = service.get_lessons(category_id = args.get("category"), sub_category_id = args.get("sub_category"), offset=0, row_count=app.config['SQL_ROW_COUNT'])
@@ -150,6 +153,7 @@ contributor = oplApi.model('Contributor', {
     'user_type_id': fields.Integer(attribute='user_type_id', description='user_type_id'),
     'lesson_count': fields.Integer(attribute='lesson_count', description='lesson_count'),
     'about_me': fields.String(attribute='about_me', description='about_me'),
+    'user_handle': fields.String(attribute='user_handle', description='user_handle'),
     'skills': fields.Raw(attribute='skills', description='skills')
 })
 
@@ -162,18 +166,18 @@ class ContributorsController(Resource):
         contributors = service.get_contributors()
         return contributors, 200, {'Content-Type': 'application/json; charset=utf8'}
 
-@oplns.route('/contributor/<int:user_id>')
+@oplns.route('/contributor/<string:user_handle>')
 class ContributorController(Resource):
     # parser = reqparse.RequestParser()
     # parser.add_argument('category', type=int, help='CategoryID', required=False, location='args')
     # parser.add_argument('sub_category', type=int, help='SubCategoryID', required=False, location='args')
-    @oplns.doc('user_by_id')
+    @oplns.doc('contributor_by_user_handle')
     # @oplns.expect(parser, validate=True)
     @oplns.marshal_with(contributor)
-    def get(self, user_id, **kwargs):
-        '''user by id'''
+    def get(self, user_handle, **kwargs):
+        '''user by user_handle'''
         service = OplService()
-        result = service.get_contributor(user_id)
+        result = service.get_contributor_by_user_handle(user_handle)
         if result is None:
             return result, 404, {'Content-Type': 'application/json; charset=utf8'}
         else:

@@ -50,7 +50,18 @@ class OplService(object):
             contributor.addSkill(lesson.sub_category.name)
         return contributor
 
+    def get_contributor_by_user_handle(self, user_handle):
+        contributor = self.userDA.selectContributorByUserhandle(user_handle)
+        if contributor is not None:
+            lessons = self.lessonDA.selectLessonByUserId(contributor.id)
+            for lesson in lessons:
+                contributor.addSkill(lesson.sub_category.name)
+        return contributor
+
     def get_lessons_by_user(self, user_id):
         retval = self.lessonDA.selectLessonByUserId(user_id)
         return retval
 
+    def get_lessons_by_user_handle(self, user_handle):
+        retval = self.lessonDA.selectLessonByUserHandle(user_handle)
+        return retval

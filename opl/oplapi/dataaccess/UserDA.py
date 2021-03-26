@@ -20,6 +20,21 @@ class UserDataAccess(DbConnect):
             print(e)
         return user
 
+    def selectContributorByUserhandle(self, user_handle):
+        contributor = None
+        conn = self._createConnection()
+        try:
+            with conn:
+                sql = app.config['SQL_SELECT_CONTRIBUTOR_BY_USER_HANDLE']
+                cur = conn.cursor()
+                cur.execute(sql, (user_handle,))
+                row = cur.fetchone()
+                if row is not None:
+                    contributor = Contributor(*row)
+        except Error as e:
+            print(e)
+        return contributor
+
     def selectContributorByUserId(self, user_id):
         contributor = None
         conn = self._createConnection()

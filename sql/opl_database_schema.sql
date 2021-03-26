@@ -616,3 +616,30 @@ INSERT into lesson (name,
     29,
     10
 );
+
+-------------------------------------------------
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --
+PRAGMA foreign_keys=off;
+
+BEGIN TRANSACTION;
+
+ALTER TABLE user RENAME TO user_old_2;
+
+CREATE TABLE IF NOT EXISTS "user"(
+    id INTEGER PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    google_id TEXT,
+    profile_pic TEXT,
+    user_type_id INTEGER NOT NULL,
+    about_me TEXT,
+    user_handle TEXT UNIQUE NOT NULL
+);
+
+
+INSERT INTO user (id, user_type_id, email, name, display_name, user_type_id, about_me, user_handle)
+SELECT id, user_type_id, email, name, display_name, user_type_id, 'Hi! I am '||display_name, '~'||LOWER(display_name)||id FROM user_old_2;
+COMMIT;
+
+PRAGMA foreign_keys=on;
