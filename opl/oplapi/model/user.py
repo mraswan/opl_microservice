@@ -12,10 +12,11 @@ class User(UserMixin):
 
 
 class Contributor(User):
-    def __init__(self, id, email, name, display_name, google_id, profile_pic, user_type_id, about_me="", lesson_count=0):
+    def __init__(self, id, email, name, display_name, google_id, profile_pic, user_type_id, about_me="", user_handle="",lesson_count=0):
         super().__init__(id, email, name, display_name, google_id, profile_pic, user_type_id)
         self.about_me = about_me
         self.lesson_count = lesson_count
+        self.user_handle = user_handle
         # it is a hash of sub_categories that contributor has contributor and the count of lessons
         self.skills = {}
 

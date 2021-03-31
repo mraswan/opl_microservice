@@ -17,6 +17,8 @@ Configuration (if you need to change)
 --------------
 Run
 --------------
+-Run on local laptop
+````
 - Run for development using:
 `` python wsgi.py``
 

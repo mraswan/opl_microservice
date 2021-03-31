@@ -66,11 +66,21 @@ class LessonDataAccess(DbConnect):
             lessons = [Lesson(*row) for row in cur.fetchall()]
         return lessons
 
+    def selectLessonByUserHandle(self, user_handle):
+        lessons = None
+        conn = self._createConnection()
+        with conn:
+            sql = app.config['SQL_SELECT_LESSONS_BY_CONTRIBUTOR_HANDLE'].format(user_handle)
+            cur = conn.cursor()
+            cur.execute(sql, (user_handle,))
+            lessons = [Lesson(*row) for row in cur.fetchall()]
+        return lessons
+
     def selectLessonsCount(self):
         record_count = 0
         conn = self._createConnection()
         with conn:
-            sql = app.config['SQL_SELECT_LESSON_COUNT'].format(offset, row_count)
+            sql = app.config['SQL_SELECT_LESSON_COUNT'] #.format(offset, row_count)
             cur = conn.cursor()
             cur.execute(sql)
             rows = cur.fetchall()
