@@ -616,3 +616,24 @@ INSERT into lesson (name,
     29,
     10
 );
+
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Reading Beyond the Notes",
+    "Learn to read music notes more in-depth with Nithin Parthasarathy by reading beyond what is written down.",
+    "MEjIAazIZzk",
+    "",
+    "1617053076",
+    4,
+    29,
+    5
+);
+
