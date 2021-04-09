@@ -658,6 +658,7 @@ CREATE TABLE IF NOT EXISTS "user"(
 );
 
 
+
 INSERT INTO user (id, user_type_id, email, name, display_name, user_type_id, about_me, user_handle)
 SELECT id, user_type_id, email, name, display_name, user_type_id, 'Hi! I am '||display_name, '~'||LOWER(display_name)||id FROM user_old_2;
 COMMIT;
@@ -665,3 +666,24 @@ COMMIT;
 PRAGMA foreign_keys=on;
 
 UPDATE category SET name = "World Languages" WHERE id = 5;
+
+update user set email = "chouaaron2004@gmail.com" WHERE id = 11;
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "How to Increase the Volume of Audio Clips on Audacity",
+    "Join Edward Chen and learn how to use Audacity, a prominent audio editing tool used worldwide! We will simply learn about how to increase the audio volume of an audio file using built-in Audacity tools.",
+    "SLmSODm8Ugk",
+    "",
+    "1618003571",
+    6,
+    28,
+    9
+);
