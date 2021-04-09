@@ -664,3 +664,4 @@ COMMIT;
 
 PRAGMA foreign_keys=on;
 
+UPDATE category SET name = "World Languages" WHERE id = 5;
