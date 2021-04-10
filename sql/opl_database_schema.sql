@@ -687,3 +687,24 @@ INSERT into lesson (name,
     28,
     9
 );
+
+INSERT into lesson (name,
+    description,
+    youtube_url,
+    git_url,
+    published_timestamp,
+    category_id,
+    sub_category_id,
+    author_id)
+    VALUES (
+    "Periodic Trend of Electronegativity",
+    "Kunal Sonowal explains the concept of electronegativity and its relation to the Periodic Table.",
+    "XQvuc-OSsug",
+    "",
+    "1618036255",
+    2,
+    8,
+    6
+);
+
+update lesson set published_timestamp = 1618036255 where id = 25;
